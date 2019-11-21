@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yzj.springboot.hbuilder.mapper.UlMapper">
+<select id="getLikeById" resultType="int" parameterType="int">
+    select mk from ul where uid = #{uid};
+</select>
+
+    <select id="findCount" resultType="int">
+    select count(*) from ul ;
+    </select>
+
+    <delete id="findDelDz">
+        delete from ul where uid = #{uid};
+    </delete>
+
+    <insert id="findAddDz" parameterType="int">
+        insert into ul(uid,mk) values (#{uid},1)
+    </insert>
+</mapper>

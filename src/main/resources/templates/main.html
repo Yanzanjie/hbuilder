@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+    <!--    网格图-->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/tpindex.css}" href="/static/css/tpindex.css" />
+    <script type="text/javascript" th:src="@{/js/tpindex.js}" src="/static/js/tpindex.js" ></script>
+    <!--轮播图-->
+    <style type="text/css">
+        * {padding: 0;margin: 0;font-family: "微软雅黑";font-size: 14px;}
+        ul,li {list-style: none;}
+        a {text-decoration: none;color: black;}
+        .box{width: 800px;height: 400px;margin: 20px auto;overflow: hidden;position: relative;}
+        .box-1 ul{}
+        .box-1 ul li{width: 800px;height: 400px;position: relative;overflow: hidden;}
+        .box-1 ul li img{display:block;width: 800px; height: 400px;}
+        .box-1 ul li h2{position: absolute;left: 0;bottom: 0;height: 40px;width:300px;background: rgba(125,125,120,.4);text-indent: 2em;
+            padding-right:500px ;font-size: 15px;line-height: 40px;text-overflow: ellipsis;overflow: hidden;
+            white-space: nowrap;font-weight: normal;color: ghostwhite}
+        .box-2{position: absolute;right: 10px;bottom: 14px;}
+        .box-2 ul li{float:left;width: 12px;height: 12px;overflow: hidden; margin: 0 5px; border-radius: 50%;
+            background: rgba(0,0,0,0.5);text-indent: 100px;cursor: pointer;}
+        .box-2 ul .on{background: rgba(255,255,255,0.6);}
+        .box-3 span{position: absolute;color: white;background: rgba(125,125,120,.3);width: 50px;height: 80px;
+            top:50%; font-family: "宋体";line-height: 80px;font-size:60px;margin-top: -40px;
+            text-align: center;cursor: pointer;}
+        .box-3 .prev{left: 10px;}
+        .box-3 .next{right: 10px;}
+        .box-3 span::selection{background: transparent;}
+        .box-3 span:hover{background: rgba(125,125,120,.8);}
+    </style>
+
+    <script type="text/javascript">
+        window.onload = function(){
+            function $(param){
+                if(arguments[1] == true){
+                    return document.querySelectorAll(param);
+                }else{
+                    return document.querySelector(param);
+                }
+            }
+            var $box = $(".box");
+            var $box1 = $(".box-1 ul li",true);
+            var $box2 = $(".box-2 ul");
+            var $box3 = $(".box-3");
+            var $length = $box1.length;
+
+            var str = "";
+            for(var i =0;i<$length;i++){
+                if(i==0){
+                    str +="<li class='on'>"+(i+1)+"</li>";
+                }else{
+                    str += "<li>"+(i+1)+"</li>";
+                }
+            }
+            $box2.innerHTML = str;
+
+            var current = 0;
+
+            var timer;
+            timer = setInterval(go,1000);
+            function go(){
+                for(var j =0;j<$length;j++){
+                    $box1[j].style.display = "none";
+                    $box2.children[j].className = "";
+                }
+                if($length == current){
+                    current = 0;
+                }
+                $box1[current].style.display = "block";
+                $box2.children[current].className = "on";
+                current++;
+            }
+
+            for(var k=0;k<$length;k++){
+                $box1[k].onmouseover = function(){
+                    clearInterval(timer);
+                }
+                $box1[k].onmouseout = function(){
+                    timer = setInterval(go,1000);
+                }
+            }
+            for(var p=0;p<$box3.children.length;p++){
+                $box3.children[p].onmouseover = function(){
+                    clearInterval(timer);
+                };
+                $box3.children[p].onmouseout = function(){
+                    timer = setInterval(go,1000);
+                }
+            }
+
+            for(var u =0;u<$length;u++){
+                $box2.children[u].index  = u;
+                $box2.children[u].onmouseover = function(){
+                    clearInterval(timer);
+                    for(var j=0;j<$length;j++){
+                        $box1[j].style.display = "none";
+                        $box2.children[j].className = "";
+                    }
+                    this.className = "on";
+                    $box1[this.index].style.display = "block";
+                    current = this.index +1;
+                }
+                $box2.children[u].onmouseout = function(){
+                    timer = setInterval(go,1000);
+                }
+            }
+
+            $box3.children[0].onclick = function(){
+                back();
+            }
+            $box3.children[1].onclick = function(){
+                go();
+            }
+            function back(){
+                for(var j =0;j<$length;j++){
+                    $box1[j].style.display = "none";
+                    $box2.children[j].className = "";
+                }
+                if(current == 0){
+                    current = $length;
+                }
+                $box1[current-1].style.display = "block";
+                $box2.children[current-1].className = "on";
+                current--;
+            }
+        }
+</script>
+
+</head>
+<body>
+<div class="box">
+    <div class="box-1">
+        <ul>
+            <li>
+<!--                th:src="@{${product.imgAddr}}"-->
+                <img src="/img/mj1.jpg" alt="我的初中" />
+                <h2>我的初中</h2>
+            </li>
+            <li>
+                <img src="/img/xx.jpg" alt="我的高中" />
+                <h2>我的高中</h2>
+            </li>
+            <li>
+                <img src="/img/dx1.jpg" alt="我的大学" />
+                <h2>我的大学</h2>
+            </li>
+            <li>
+                <img src="/img/yy.jpg" alt="我喜欢的音乐" />
+                <h2>我喜欢的音乐</h2>
+            </li>
+            <li>
+                <img src="/img/blr1.jpg" alt="我爱看的动漫" />
+                <h2>我爱看的动漫</h2>
+            </li>
+        </ul>
+    </div>
+    <div class="box-2">
+        <ul>
+        </ul>
+    </div>
+    <div class="box-3">
+        <span class="prev"> < </span>
+        <span class="next"> > </span>
+    </div>
+</div>
+
+<hr style=" height:2px;border:none;border-top:2px dotted #185598;" />
+<h3>我的历程</h3>
+<div class="tpbox" style="margin-top: 20px">
+    <div class="body">
+        <a class="img" href="cz" data-title="我的初中" data-content ="深圳市潜龙学校创办于2008年9月，是一所隶属于深圳市龙华新区人民政府的理念..."></a>
+        <a class="img" href="gz" data-title="我的高中" data-content ="深圳市西乡中学创办于1969年9月，是一所公办完全中学，是广东省国家级示范性..."></a>
+        <a class="img" href="dx" data-title="我的大学" data-content ="东莞理工学院城市学院是2004年6月经国家教育部批准成立的独立学院。2009年，由..."></a>
+        <a class="img" href="yy" data-title="我喜欢的音乐" data-content ="享受生活享受音乐"></a>
+        <a class="img" href="dm" data-title="我喜欢的动漫" data-content ="《画江湖之不良人》，是北京若森数字科技有限公司继《侠岚》在获取了巨大的市场成功之后推出的系列原创大型三维成人武侠动画钜制"></a>
+    </div>
+</div>
+
+
+</body>
+</html>

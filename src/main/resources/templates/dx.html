@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>大学</title>
+    <style>
+        label{
+            font-family:"黑体";
+            font-size:xx-large;
+            color: #BE9A02;
+        }
+        *{ margin:0px; padding:0px;}
+
+
+        .metro_rec{ width:100%; height:50%; float:left; margin:1%;}
+
+        #test {
+            background-color: #CD96CD;
+            width: 100px;
+            height: 100px;
+            border-radius: 50px;
+            border: 5px solid white;
+        }
+    </style>
+</head>
+<body>
+<button><a href="/tomain">返回</a></button>
+<div id="test" align="center" style="height: 100px;width: 100px;background:url(/img/mj1.jpg) no-repeat left top; background-size: cover;position:relative;top: 100px;left: 46.5%;text-align: center;line-height: 100px;">
+</div>
+
+<br /><br /><br /><br /><br />
+<p align="center" style="font-family: '微软雅黑';color: black;font-size: x-large;">我的大学</p>
+<ul data-role="listview" style="margin-top:10px">
+    <li data-role="list-divider"></li>
+    <p id="j1" style="text-indent: 2em;font-family: '华文琥珀';" th:text="${uni[0].uv}">
+        6666666666666666666666
+    </p>
+    <div align="center">
+        <img id="js1" th:src="${uni[0].uurl}" width="70%"/>
+    </div>
+    <p id="j2" style="text-indent: 2em;font-family: '华文琥珀';" th:text="${uni[1].uv}">
+        6666
+    </p>
+    <div align="center">
+        <img id="js2" th:src="${uni[1].uurl}" width="70%"/>
+    </div>
+    <p id="j3" style="text-indent: 2em;font-family: '华文琥珀';" th:text="${uni[2].uv}">
+        666666666
+    </p>
+</ul>
+</body>
+</html>
